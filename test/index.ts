@@ -3,6 +3,9 @@ import { expect } from "chai";
 import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
+const DECIMALS = 1;
+const NAME = "ITPubToken";
+const SYMBOL = "ITP";
 
 const TOTAL_SUPPLY = 1_000_000;
 const TOKENS_TO_TRANSFER = 1_000;
@@ -20,8 +23,26 @@ describe("ItPubToken contract", function () {
     itPubTokenContract = await ItPubTokenContract.deploy();
 
   })
+  describe("Initial params of contract", async () => {
+    it("Check total supply correctness", async () => {
+      expect(await itPubTokenContract.totalSupply()).to.equal(TOTAL_SUPPLY);
+    })
 
-  describe("", function () {
+    it("Check decimals supply correctness", async () => {
+      expect(await itPubTokenContract.decimals()).to.equal(DECIMALS);
+    })
+
+    it("Check name correctness", async () => {
+      expect(await itPubTokenContract.name()).to.equal(NAME);
+    })
+
+    it("Check symbol correctness", async () => {
+      expect(await itPubTokenContract.symbol()).to.equal(SYMBOL);
+    })
+
+  })
+
+  describe("Contract logic", function () {
     it("Check initial balance of the owner", async () => {
       expect(await itPubTokenContract.balanceOf(owner.address)).to.equal(TOTAL_SUPPLY);
     });
@@ -45,7 +66,7 @@ describe("ItPubToken contract", function () {
       expect(await itPubTokenContract.balanceOf(user1.address)).to.equal(initialUserBalance);
     })
     it("Check approving", async () => {
-      
+
       {
         expect(await itPubTokenContract.allowance(owner.address, user1.address)).to.equal(0);
         let approvingTransaction = await itPubTokenContract.approve(user1.address, TOKENS_TO_TRANSFER);
@@ -89,6 +110,6 @@ describe("ItPubToken contract", function () {
 
       expect(itPubTokenContract.burn(TOTAL_SUPPLY)).to.be.revertedWith('Not enough money')
     })
-    
+
   })
 });
