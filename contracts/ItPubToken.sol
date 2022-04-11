@@ -72,6 +72,10 @@ contract ItPubToken {
         success = true;
     }
 
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+
     constructor() {
         _mint(msg.sender, INITIAL_SUPPLY);
     }
@@ -82,7 +86,9 @@ contract ItPubToken {
         emit Transfer(address(0), account, amount);
     }
 
-    function burn(address account, uint256 amount) public {
+
+
+    function _burn(address account, uint256 amount) internal {
         require(_balances[account] >= amount, "Not enough money");
         totalSupply -= amount;
         _balances[account] -= amount;

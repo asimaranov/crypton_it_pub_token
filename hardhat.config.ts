@@ -27,13 +27,21 @@ task("deploy", "Deploy contract to the ethereum network", async (taskArgs, hre) 
   console.log("Contract deployed to:", itPubTokenContract.address);
 });
 
-task("getBalance", "Get my balance").addParam("contractAddr", "Address of the deployed contract")
+task("balanceOf", "Get my balance").addParam("contractAddr", "Address of the deployed contract")
 .setAction(async (taskArgs, hre) => {
   let [owner] = await hre.ethers.getSigners();
   const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
-  const itPubTokenContract = await ItPubTokenContract.attach(taskArgs['contractAddr']);
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
 
-  console.log("Your balance:", await itPubTokenContract.balanceOf(owner.address));
+  console.log(`Your balance: ${await itPubTokenContract.balanceOf(owner.address)}`);
+});
+
+task("totalSupply", "Get the total supply").addParam("contractAddr", "Address of the deployed contract")
+.setAction(async (taskArgs, hre) => {
+  const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
+
+  console.log(`Total supply: ${await itPubTokenContract.totalSupply()}`);
 });
 
 
@@ -44,7 +52,7 @@ task("transfer", "Transfer tokens to another account")
 .setAction(async (taskArgs, hre) => {
 
   const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
-  const itPubTokenContract = await ItPubTokenContract.attach(taskArgs['contractAddr']);
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
 
   let transferTransaction = await itPubTokenContract.transfer(taskArgs['toAddr'], taskArgs['value']);
 
@@ -66,7 +74,7 @@ task("approve", "Allows spender to withdraw from your account multiple times, up
 .setAction(async (taskArgs, hre) => {
 
   const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
-  const itPubTokenContract = await ItPubTokenContract.attach(taskArgs['contractAddr']);
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
 
 
   let approvingTransaction = await itPubTokenContract.approve(taskArgs['toAddr'], taskArgs['value']);
@@ -93,7 +101,7 @@ task("transferFrom", "Transfer tokens to another account")
 .setAction(async (taskArgs, hre) => {
 
   const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
-  const itPubTokenContract = await ItPubTokenContract.attach(taskArgs['contractAddr']);
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
 
   let transferTransaction = await itPubTokenContract.transferFrom(taskArgs['fromAddr'], taskArgs['toAddr'], taskArgs['value']);
 
@@ -107,6 +115,29 @@ task("transferFrom", "Transfer tokens to another account")
 
 
 });
+
+
+task("burn", "Burn tokens from account")
+.addParam("contractAddr", "Address of the deployed contract")
+.addParam("value", "Amount of tokens to burn")
+.setAction(async (taskArgs, hre) => {
+
+  const ItPubTokenContract = await hre.ethers.getContractFactory("ItPubToken");
+  const itPubTokenContract = ItPubTokenContract.attach(taskArgs['contractAddr']);
+
+  let transferTransaction = await itPubTokenContract.burn(taskArgs['value']);
+
+  let rc = await transferTransaction.wait();
+  let transferEvent = rc.events?.find(event => event.event == "Transfer");
+  if(!transferEvent?.args){
+    return console.log("Something went wrong while transferring")
+  }
+  const [_from, _to, _value] = transferEvent?.args!;
+  console.log(`Successfully transfered ${_value} tokens from ${_from} to ${_to}`);
+
+
+});
+
 
 
 const config: HardhatUserConfig = {

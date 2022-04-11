@@ -83,11 +83,11 @@ describe("ItPubToken contract", function () {
     it("Check burn", async () => {
       const initialUserBalance = await itPubTokenContract.balanceOf(owner.address);
 
-      await itPubTokenContract.burn(owner.address, TOKENS_TO_BURN);
+      await itPubTokenContract.burn(TOKENS_TO_BURN);
       expect(await itPubTokenContract.totalSupply()).to.equal(TOTAL_SUPPLY - TOKENS_TO_BURN);
       expect(initialUserBalance - await itPubTokenContract.balanceOf(owner.address)).to.equal(TOKENS_TO_BURN);
 
-      expect(itPubTokenContract.burn(owner.address, TOTAL_SUPPLY)).to.be.revertedWith('Not enough money')
+      expect(itPubTokenContract.burn(TOTAL_SUPPLY)).to.be.revertedWith('Not enough money')
     })
     
   })
