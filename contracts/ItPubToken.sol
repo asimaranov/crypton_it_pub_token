@@ -3,10 +3,9 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-uint256 constant INITIAL_SUPPLY = 1_000_000; 
+uint256 constant INITIAL_SUPPLY = 1_000_000;
 
 contract ItPubToken {
-
     uint8 public decimals = 1;
     uint256 public totalSupply = 0;
 
@@ -28,7 +27,8 @@ contract ItPubToken {
     }
 
     function allowance(address _owner, address _spender)
-        public view
+        public
+        view
         returns (uint256 remaining)
     {
         remaining = _allowances[_owner][_spender];
@@ -38,8 +38,8 @@ contract ItPubToken {
         public
         returns (bool success)
     {
-        require (_balances[msg.sender] >= _value, "Not enough money");
-        
+        require(_balances[msg.sender] >= _value, "Not enough money");
+
         _balances[msg.sender] -= _value;
         _balances[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
@@ -56,20 +56,18 @@ contract ItPubToken {
         success = true;
     }
 
-
     function transferFrom(
         address _from,
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        require (_allowances[_from][_to] >= _value, "Not permitted");
-        require (_balances[_from] >= _value, "Not enough money");
+        require(_allowances[_from][_to] >= _value, "Not permitted");
+        require(_balances[_from] >= _value, "Not enough money");
 
         _balances[_from] -= _value;
         _balances[_to] += _value;
 
         emit Transfer(_from, _to, _value);
-
 
         success = true;
     }
@@ -78,12 +76,16 @@ contract ItPubToken {
         _mint(msg.sender, INITIAL_SUPPLY);
     }
 
-    function _mint(
-        address account,
-        uint256 amount
-    ) internal {
+    function _mint(address account, uint256 amount) internal {
         totalSupply += amount;
         _balances[account] += amount;
         emit Transfer(address(0), account, amount);
+    }
+
+    function burn(address account, uint256 amount) public {
+        require(_balances[account] >= amount, "Not enough money");
+        totalSupply -= amount;
+        _balances[account] -= amount;
+        emit Transfer(account, address(0), amount);
     }
 }

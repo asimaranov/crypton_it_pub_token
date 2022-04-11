@@ -15,7 +15,7 @@ npx hardhat deploy --network rinkeby
 
 
 ```shell
-npx hardhat getBalance --contract-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --network rinkeby
+npx hardhat getBalance --contract-addr 0x5FbDB2315678afecb367f032d93F642f64180aa3 --network rinkeby
 ```
 
 
@@ -23,21 +23,21 @@ npx hardhat getBalance --contract-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a3
 
 
 ```shell
-npx hardhat transfer --contract-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xD8Ea779b8FFC1096CA422D40588C4c0641709890 --value 10 --network rinkeby
+npx hardhat transfer --contract-addr 0x5FbDB2315678afecb367f032d93F642f64180aa3 --to-addr 0xD8Ea779b8FFC1096CA422D40588C4c0641709890 --value 10 --network rinkeby
 ```
 
 ## How to allows spender to withdraw money from your account 
 
 
 ```shell
-npx hardhat approve --contract-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
+npx hardhat approve --contract-addr 0x5FbDB2315678afecb367f032d93F642f64180aa3 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
 ```
 
 ## How to transfer allowed money to another account 
 
 
 ```shell
-npx hardhat transferFrom --contract-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --from-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
+npx hardhat transferFrom --contract-addr 0x5FbDB2315678afecb367f032d93F642f64180aa3 --from-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
 ```
 
 ## How to verify
