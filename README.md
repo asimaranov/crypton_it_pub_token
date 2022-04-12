@@ -20,7 +20,7 @@ npx hardhat run scripts/deploy.ts --network rinkeby
 
 
 ```shell
-npx hardhat totalSupply --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --network rinkeby
+npx hardhat totalSupply --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --network rinkeby
 ```
 
 
@@ -28,7 +28,7 @@ npx hardhat totalSupply --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E0
 
 
 ```shell
-npx hardhat balanceOf --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --network rinkeby
+npx hardhat balanceOf --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --network rinkeby
 ```
 
 
@@ -36,21 +36,21 @@ npx hardhat balanceOf --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002
 
 
 ```shell
-npx hardhat transfer --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --to-addr 0xD8Ea779b8FFC1096CA422D40588C4c0641709890 --value 10 --network rinkeby
+npx hardhat transfer --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --to-addr 0xD8Ea779b8FFC1096CA422D40588C4c0641709890 --value 10 --network rinkeby
 ```
 
 ## How to allows spender to withdraw tokens from your account 
 
 
 ```shell
-npx hardhat approve --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
+npx hardhat approve --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
 ```
 
 ## How to transfer allowed tokens to another account 
 
 
 ```shell
-npx hardhat transferFrom --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --from-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
+npx hardhat transferFrom --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --from-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --to-addr 0xEde64552FbfF05c7dc076468c3a70C6B17CB5a37 --value 10 --network rinkeby
 ```
 
 
@@ -58,15 +58,23 @@ npx hardhat transferFrom --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E
 
 
 ```shell
-npx hardhat burn --contract-addr 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --value 10 --network rinkeby
+npx hardhat burn --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --value 10 --network rinkeby
+```
+
+## How to mint tokens (only for owner)
+
+
+```shell
+npx hardhat burn --contract-addr 0x6c798973bC66aa4556251e21058f89C942F45dC7 --value 10 --network rinkeby
 ```
 
 
 ## How to verify
 
 ```shell
-npx hardhat verify 0x911d4be88e1D36B4c7a3254736B642e0F4a6E002 --network rinkeby
+npx hardhat verify 0x6c798973bC66aa4556251e21058f89C942F45dC7 --network rinkeby
 ```
 
 
-### Contract verification link: https://rinkeby.etherscan.io/address/0x911d4be88e1D36B4c7a3254736B642e0F4a6E002#code
+## Contract verification link
+https://rinkeby.etherscan.io/address/0x6c798973bC66aa4556251e21058f89C942F45dC7#code

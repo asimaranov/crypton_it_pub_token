@@ -6,11 +6,16 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "./task/balance_of"
+import "./task/total_supply"
+import "./task/transfer"
+import "./task/approve"
+import "./task/transfer_from"
+import "./task/burn"
+import "./task/mint"
+
 
 dotenv.config();
-
-
-import "./task";
 
 
 const config: HardhatUserConfig = {

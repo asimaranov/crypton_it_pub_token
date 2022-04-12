@@ -11,6 +11,7 @@ const TOTAL_SUPPLY = 1_000_000;
 const TOKENS_TO_TRANSFER = 1_000;
 
 const TOKENS_TO_BURN = 10;
+const TOKENS_TO_MINT = 10;
 
 
 describe("ItPubToken contract", function () {
@@ -118,6 +119,16 @@ describe("ItPubToken contract", function () {
     it("Check that burn fails if not enough money", async () => {
       await expect(itPubTokenContract.burn(TOTAL_SUPPLY + 1)).to.be.revertedWith('Not enough money');
     })
+
+    it("Check mint correctness", async () => {
+      await itPubTokenContract.mint(TOKENS_TO_MINT);
+      expect(await itPubTokenContract.totalSupply()).to.equal(TOTAL_SUPPLY + TOKENS_TO_MINT);
+      expect(await itPubTokenContract.balanceOf(owner.address)).to.equal(TOTAL_SUPPLY + TOKENS_TO_MINT);
+    })
+    it("Check mint access control", async () => {
+      await expect(itPubTokenContract.connect(user1).mint(TOKENS_TO_MINT)).to.revertedWith("Only owner can do that");
+    })
+
 
   })
 });

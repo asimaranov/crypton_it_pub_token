@@ -10,6 +10,8 @@ contract ItPubToken {
     string public name;
     string public symbol;
 
+    address private _tokenOwner;
+
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -60,10 +62,17 @@ contract ItPubToken {
         _burn(msg.sender, amount);
     }
 
+    function mint(uint256 amount) public {
+        require(msg.sender == _tokenOwner, "Only owner can do that");
+        _mint(msg.sender, amount);
+    }
+
+
     constructor() {
         name = "ITPubToken";
         symbol = "ITP";
         decimals = 18;
+        _tokenOwner = msg.sender;
         _mint(msg.sender, 1_000_000);
     }
 
