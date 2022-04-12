@@ -65,7 +65,6 @@ contract ItPubToken {
         _mint(msg.sender, amount);
     }
 
-
     constructor() {
         name = "ITPubToken";
         symbol = "ITP";
