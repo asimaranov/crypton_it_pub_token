@@ -10,6 +10,12 @@ This project contains ERC-20 compatible token implementation, tests with 100% co
 npx hardhat deploy --network rinkeby
 ```
 
+Or
+
+```shell
+npx hardhat run scripts/deploy.ts --network rinkeby
+```
+
 ## How to get total supply
 
 
