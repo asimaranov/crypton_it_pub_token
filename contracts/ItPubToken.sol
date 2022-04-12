@@ -3,14 +3,12 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-uint256 constant INITIAL_SUPPLY = 1_000_000;
-
 contract ItPubToken {
-    uint8 public decimals = 1;
-    uint256 public totalSupply = 0;
+    uint8 public decimals;
+    uint256 public totalSupply;
 
-    string public name = "ITPubToken";
-    string public symbol = "ITP";
+    string public name;
+    string public symbol;
 
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -77,7 +75,10 @@ contract ItPubToken {
     }
 
     constructor() {
-        _mint(msg.sender, INITIAL_SUPPLY);
+        name = "ITPubToken";
+        symbol = "ITP";
+        decimals = 18;
+        _mint(msg.sender, 1_000_000);
     }
 
     function _mint(address account, uint256 amount) internal {
@@ -94,4 +95,5 @@ contract ItPubToken {
         _balances[account] -= amount;
         emit Transfer(account, address(0), amount);
     }
+
 }

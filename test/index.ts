@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
-const DECIMALS = 1;
+const DECIMALS = 18;
 const NAME = "ITPubToken";
 const SYMBOL = "ITP";
 
