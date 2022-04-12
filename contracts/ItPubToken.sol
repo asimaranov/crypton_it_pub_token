@@ -24,18 +24,11 @@ contract ItPubToken {
         balance = _balances[_owner];
     }
 
-    function allowance(address _owner, address _spender)
-        public
-        view
-        returns (uint256 remaining)
-    {
+    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
         remaining = _allowances[_owner][_spender];
     }
 
-    function transfer(address _to, uint256 _value)
-        public
-        returns (bool success)
-    {
+    function transfer(address _to, uint256 _value) public returns (bool success) {
         require(_balances[msg.sender] >= _value, "Not enough money");
 
         _balances[msg.sender] -= _value;
@@ -45,20 +38,13 @@ contract ItPubToken {
         success = true;
     }
 
-    function approve(address _spender, uint256 _value)
-        public
-        returns (bool success)
-    {
+    function approve(address _spender, uint256 _value) public returns (bool success) {
         _allowances[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         success = true;
     }
 
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _value
-    ) public returns (bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         require(_allowances[_from][_to] >= _value, "Not permitted");
         require(_balances[_from] >= _value, "Not enough money");
 
@@ -87,13 +73,10 @@ contract ItPubToken {
         emit Transfer(address(0), account, amount);
     }
 
-
-
     function _burn(address account, uint256 amount) internal {
         require(_balances[account] >= amount, "Not enough money");
         totalSupply -= amount;
         _balances[account] -= amount;
         emit Transfer(account, address(0), amount);
     }
-
 }
