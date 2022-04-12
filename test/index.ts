@@ -23,7 +23,7 @@ describe("ItPubToken contract", function () {
     [owner, user1, user2, ...users] = await ethers.getSigners();
     itPubTokenContract = await ItPubTokenContract.deploy();
   })
-  
+
   describe("Initial params of contract", async () => {
     it("Check total supply correctness", async () => {
       expect(await itPubTokenContract.totalSupply()).to.equal(TOTAL_SUPPLY);
@@ -63,7 +63,7 @@ describe("ItPubToken contract", function () {
 
     it("Check that it's impossible to transfer more money than user has", async () => {
       let initialUserBalance = await itPubTokenContract.balanceOf(user1.address)
-      expect(itPubTokenContract.transfer(user1.address, TOTAL_SUPPLY + 1)).to.be.revertedWith('Not enough money');
+      await expect(itPubTokenContract.transfer(user1.address, TOTAL_SUPPLY + 1)).to.be.revertedWith('Not enough money');
       expect(await itPubTokenContract.balanceOf(user1.address)).to.equal(initialUserBalance);
     })
 
@@ -82,9 +82,9 @@ describe("ItPubToken contract", function () {
 
 
     it("Check that transferFrom fails if not allowed", async () => {
-      expect(itPubTokenContract.transferFrom(owner.address, user1.address, 1)).to.be.revertedWith("Not permitted");
+      await expect(itPubTokenContract.transferFrom(owner.address, user1.address, 1)).to.be.revertedWith("Not permitted");
       await itPubTokenContract.approve(user1.address, TOKENS_TO_TRANSFER);
-      expect(itPubTokenContract.transferFrom(owner.address, user1.address, TOKENS_TO_TRANSFER + 1)).to.be.revertedWith("Not permitted");
+      await expect(itPubTokenContract.transferFrom(owner.address, user1.address, TOKENS_TO_TRANSFER + 1)).to.be.revertedWith("Not permitted");
 
     })
 
@@ -105,7 +105,7 @@ describe("ItPubToken contract", function () {
 
     it("Check transferFrom with not enough money", async () => {
       await itPubTokenContract.approve(user1.address, TOTAL_SUPPLY + 1);
-      expect(itPubTokenContract.transferFrom(owner.address, user1.address, TOTAL_SUPPLY + 1)).to.be.revertedWith("Not enough money");
+      await expect(itPubTokenContract.transferFrom(owner.address, user1.address, TOTAL_SUPPLY + 1)).to.be.revertedWith("Not enough money");
     })
 
     it("Check burn correctness", async () => {
@@ -116,8 +116,7 @@ describe("ItPubToken contract", function () {
     })
 
     it("Check that burn fails if not enough money", async () => {
-      await itPubTokenContract.balanceOf(owner.address);
-      expect(itPubTokenContract.burn(TOTAL_SUPPLY + 1)).to.be.revertedWith('Not enough money');
+      await expect(itPubTokenContract.burn(TOTAL_SUPPLY + 1)).to.be.revertedWith('Not enough money');
     })
 
   })
