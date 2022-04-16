@@ -1,6 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import { Contract } from "ethers";
+  import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
 const DECIMALS = 18;

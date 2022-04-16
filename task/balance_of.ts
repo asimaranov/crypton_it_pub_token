@@ -8,3 +8,6 @@ task("balanceOf", "Get my balance").addParam("contractAddr", "Address of the dep
 
   console.log(`Your balance: ${await itPubTokenContract.balanceOf(owner.address)}`);
 });
+
+
+
