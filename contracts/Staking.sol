@@ -5,10 +5,10 @@ pragma solidity ^0.8.4;
 import "./ItPubToken.sol";
 
 contract Staking {
-    ItPubToken private stakingToken;
-    ItPubToken private rewardToken;
+    ItPubToken private _stakingToken;
+    ItPubToken private _rewardToken;
 
-    uint256 private percentage;
+    uint256 private _percentage;
 
     address private _owner;
 
@@ -23,9 +23,9 @@ contract Staking {
 
     function stake(uint256 amount) public {
         require(amount > 0, "Unable to stake 0 tokens");
-        stakingToken.transferFrom(msg.sender, address(this), amount);
+        _stakingToken.transferFrom(msg.sender, address(this), amount);
         _stakings[msg.sender] += amount;
-        _rewards[msg.sender] += amount * percentage / 100;
+        _rewards[msg.sender] += amount * _percentage / 100;
 
         _stakingCooldowns[msg.sender] = block.timestamp + _stakingCooldown;
         _rewardCooldowns[msg.sender] = block.timestamp + _rewardCooldown;
@@ -36,7 +36,7 @@ contract Staking {
         require(_stakings[msg.sender] > 0, "You haven't deposited any money");
 
         _stakings[msg.sender] = 0;
-        rewardToken.transfer(msg.sender, _stakings[msg.sender]);
+        _rewardToken.transfer(msg.sender, _stakings[msg.sender]);
         
     }
 
@@ -45,16 +45,34 @@ contract Staking {
         require(_rewards[msg.sender] > 0, "You haven't deposited any money");
         _rewards[msg.sender] = 0;
 
-        stakingToken.transfer(msg.sender, _rewards[msg.sender]);
+        _stakingToken.transfer(msg.sender, _rewards[msg.sender]);
     }
 
+    modifier forOwner {
+        require(msg.sender == _owner, "Only owner can do that");
+        _;
+    }
+
+    function setPercentage(uint256 percentage) public forOwner{
+        _percentage = percentage;
+    }
+
+    function setStakingCooldown(uint256 stakingCooldown) public forOwner{
+        _stakingCooldown = stakingCooldown;
+    }
+
+    function setRewardCooldown(uint256 rewardCooldown) public forOwner{
+        _rewardCooldown = rewardCooldown;
+    }
+
+
     constructor() {
-        percentage = 20;
-        stakingToken = ItPubToken(0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6);
-        rewardToken = ItPubToken(0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6);
+        _percentage = 20;
+        _stakingToken = ItPubToken(0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6);
+        _rewardToken = ItPubToken(0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6);
 
         _stakingCooldown = 20 minutes;
         _rewardCooldown = 10 minutes;
-
+        _owner = msg.sender;
     }
 }
