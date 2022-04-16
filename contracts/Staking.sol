@@ -25,7 +25,7 @@ contract Staking {
         require(amount > 0, "Unable to stake 0 tokens");
         stakingToken.transferFrom(msg.sender, address(this), amount);
         _stakings[msg.sender] += amount;
-        _rewards[msg.sender] += (amount * percentage) / 100;
+        _rewards[msg.sender] += amount * percentage / 100;
 
         _stakingCooldowns[msg.sender] = block.timestamp + _stakingCooldown;
         _rewardCooldowns[msg.sender] = block.timestamp + _rewardCooldown;
@@ -35,7 +35,9 @@ contract Staking {
         require(_stakingCooldowns[msg.sender] >= block.timestamp, "It's too early");
         require(_stakings[msg.sender] > 0, "You haven't deposited any money");
 
+        _stakings[msg.sender] = 0;
         rewardToken.transfer(msg.sender, _stakings[msg.sender]);
+        
     }
 
     function claim() public {
