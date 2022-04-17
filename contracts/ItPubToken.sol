@@ -65,7 +65,7 @@ contract ItPubToken is ERC20{
         symbol = "ITP";
         decimals = 18;
         _tokenOwner = msg.sender;
-        _mint(msg.sender, 1_000_000);
+        _mint(msg.sender, 1000_000_000_000_000_000_000);
     }
 
     function _mint(address account, uint256 amount) internal {
