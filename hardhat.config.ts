@@ -35,8 +35,6 @@ const config: HardhatUserConfig = {
       url: process.env.ROPSTEN_RPC_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      gas: 2100000,
-      gasPrice: 8000000000
 
     },
 
@@ -44,8 +42,6 @@ const config: HardhatUserConfig = {
       url: process.env.RINKEBY_RPC_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      gas: 2100000,
-      gasPrice: 8000000000
     },
   },
   gasReporter: {
