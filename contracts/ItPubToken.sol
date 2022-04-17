@@ -43,6 +43,8 @@ contract ItPubToken is ERC20{
         require(_allowances[_from][_to] >= _value, "Not permitted");
         require(_balances[_from] >= _value, "Not enough money");
 
+        _allowances[_from][_to] -= _value;
+        
         _balances[_from] -= _value;
         _balances[_to] += _value;
 
