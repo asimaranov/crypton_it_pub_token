@@ -65,7 +65,7 @@ npx hardhat burn --contract-addr 0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6 --va
 
 
 ```shell
-npx hardhat burn --contract-addr 0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6 --value 10 --network rinkeby
+npx hardhat mint --contract-addr 0xc8eeF11F258158d2B9981DD4cE305eACF33Bf8b6 --value 10 --network rinkeby
 ```
 
 

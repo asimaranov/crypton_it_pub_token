@@ -13,6 +13,7 @@ import "./task/approve"
 import "./task/transfer_from"
 import "./task/burn"
 import "./task/mint"
+import "./task/allowance"
 
 
 dotenv.config();
@@ -30,11 +31,20 @@ const config: HardhatUserConfig = {
 
   },
   networks: {
+    ropsten: {
+      url: process.env.ROPSTEN_RPC_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gas: 2100000,
+      gasPrice: 8000000000
+
+    },
+
     rinkeby: {
       url: process.env.RINKEBY_RPC_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-        gas: 2100000,
+      gas: 2100000,
       gasPrice: 8000000000
     },
   },
