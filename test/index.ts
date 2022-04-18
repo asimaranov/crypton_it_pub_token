@@ -92,7 +92,7 @@ describe("ItPubToken contract", function () {
     it("Check transferFrom after approving", async () => {
       await itPubTokenContract.approve(user1.address, TOKENS_TO_TRANSFER);
 
-      const transferFromTransaction = await itPubTokenContract.transferFrom(owner.address, user1.address, TOKENS_TO_TRANSFER);
+      const transferFromTransaction = await itPubTokenContract.connect(user1).transferFrom(owner.address, user1.address, TOKENS_TO_TRANSFER);
 
       const rc = await transferFromTransaction.wait();
 
@@ -106,7 +106,7 @@ describe("ItPubToken contract", function () {
 
     it("Check transferFrom with not enough money", async () => {
       await itPubTokenContract.approve(user1.address, TOTAL_SUPPLY + 1n);
-      await expect(itPubTokenContract.transferFrom(owner.address, user1.address, TOTAL_SUPPLY + 1n)).to.be.revertedWith("Not enough money");
+      await expect(itPubTokenContract.connect(user1).transferFrom(owner.address, user1.address, TOTAL_SUPPLY + 1n)).to.be.revertedWith("Not enough money");
     })
 
     it("Check burn correctness", async () => {

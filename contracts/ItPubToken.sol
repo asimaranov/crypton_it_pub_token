@@ -40,13 +40,12 @@ contract ItPubToken is ERC20{
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public override returns (bool success) {
-        require(_allowances[_from][_to] >= _value, "Not permitted");
+        require(_allowances[_from][msg.sender] >= _value, "Not permitted");
         require(_balances[_from] >= _value, "Not enough money");
-
-        _allowances[_from][_to] -= _value;
-        
+    
         _balances[_from] -= _value;
         _balances[_to] += _value;
+        _allowances[_from][msg.sender] -= _value;
 
         emit Transfer(_from, _to, _value);
 
